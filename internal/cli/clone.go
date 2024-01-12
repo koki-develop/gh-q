@@ -1,13 +1,11 @@
 package cli
 
 import (
-	"path/filepath"
-
 	"github.com/koki-develop/gh-q/internal/git"
 )
 
 func (c *Client) Clone(owner, repo string) error {
-	dest := filepath.Join(c.root, "github.com", owner, repo)
+	dest := c.path(owner, repo)
 
 	opts := []git.CloneOption{}
 	auth, err := c.auth()

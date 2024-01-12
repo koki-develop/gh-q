@@ -45,3 +45,7 @@ func defaultRoot() (string, error) {
 	}
 	return filepath.Join(h, "ghq"), nil
 }
+
+func (c *Client) path(owner, repo string) string {
+	return filepath.Join(c.root, "github.com", owner, repo)
+}
