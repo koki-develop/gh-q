@@ -8,6 +8,9 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use: "q", // TODO: `gh q`
+	CompletionOptions: cobra.CompletionOptions{
+		DisableDefaultCmd: true,
+	},
 }
 
 func Execute() {
