@@ -9,10 +9,11 @@ import (
 )
 
 var cloneCmd = &cobra.Command{
-	Use:   "clone",
-	Short: "Clone repository",
-	Long:  "Clone repository.",
-	Args:  cobra.ExactArgs(1),
+	Use:     "clone",
+	Aliases: []string{"c"},
+	Short:   "Clone repository",
+	Long:    "Clone repository.",
+	Args:    cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		segs := strings.Split(args[0], "/")
 		if len(segs) != 2 {

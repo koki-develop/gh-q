@@ -12,9 +12,10 @@ var (
 )
 
 var listCmd = &cobra.Command{
-	Use:   "list",
-	Short: "List managed repositories",
-	Long:  "List managed repositories.",
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "List managed repositories",
+	Long:    "List managed repositories.",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		c, err := cli.NewClient()
 		if err != nil {
