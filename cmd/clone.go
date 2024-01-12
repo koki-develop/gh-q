@@ -9,7 +9,7 @@ import (
 )
 
 var cloneCmd = &cobra.Command{
-	Use:     "clone",
+	Use:     "clone OWNER/REPO",
 	Aliases: []string{"c"},
 	Short:   "Clone repository",
 	Long:    "Clone repository.",
