@@ -5,7 +5,7 @@ import (
 	"github.com/koki-develop/gh-q/internal/git"
 )
 
-func (c *Client) Auth() (*git.Auth, error) {
+func (c *Client) auth() (*git.Auth, error) {
 	h, _ := auth.DefaultHost()
 	tkn, _ := auth.TokenForHost(h)
 	if tkn == "" {

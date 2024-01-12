@@ -10,7 +10,7 @@ func (c *Client) Clone(owner, repo string) error {
 	dest := filepath.Join(c.root, "github.com", owner, repo)
 
 	opts := []git.CloneOption{}
-	auth, err := c.Auth()
+	auth, err := c.auth()
 	if err != nil {
 		return err
 	}
