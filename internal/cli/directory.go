@@ -23,29 +23,20 @@ func (d *Directory) Path(full bool) string {
 }
 
 func (c *Client) ListDirectories() ([]*Directory, error) {
-	ps, err := filepath.Glob(filepath.Join(c.root, "github.com/*/*"))
-	if err != nil {
-		return nil, err
-	}
-
 	dirs := []*Directory{}
-	for _, p := range ps {
-		info, err := os.Stat(p)
+	err := filepath.WalkDir(filepath.Join(c.root, "github.com"), func(p string, d os.DirEntry, err error) error {
 		if err != nil {
-			return nil, err
+			return err
+		}
+		if !d.IsDir() {
+			return nil
 		}
 
-		// check if directory
-		if !info.IsDir() {
-			continue
-		}
-
-		// check if git repository
 		if _, err := git.PlainOpen(p); err != nil {
 			if err == git.ErrRepositoryNotExists {
-				continue
+				return nil
 			}
-			return nil, err
+			return err
 		}
 
 		dirs = append(dirs, &Directory{
@@ -53,8 +44,11 @@ func (c *Client) ListDirectories() ([]*Directory, error) {
 			Repo:     filepath.Base(p),
 			FullPath: p,
 		})
+		return filepath.SkipDir
+	})
+	if err != nil {
+		return nil, err
 	}
 
 	return dirs, nil
-
 }
