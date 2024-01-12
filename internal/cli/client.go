@@ -15,21 +15,15 @@ type Client struct {
 
 func NewClient() (*Client, error) {
 	// load gitconfig
-	cfg, err := config.LoadConfig(config.GlobalScope)
+	gitcfg, err := config.LoadConfig(config.GlobalScope)
 	if err != nil {
 		return nil, err
 	}
 
-	// load root directory
-	ghq := cfg.Raw.Section("ghq")
-	root := ghq.Option("root")
-	if root == "" {
-		// if not set, use `$HOME/ghq`
-		r, err := defaultRoot()
-		if err != nil {
-			return nil, err
-		}
-		root = r
+	// get root
+	root, err := getRoot(gitcfg)
+	if err != nil {
+		return nil, err
 	}
 
 	return &Client{
@@ -38,7 +32,20 @@ func NewClient() (*Client, error) {
 	}, nil
 }
 
-func defaultRoot() (string, error) {
+func getRoot(gitcfg *config.Config) (string, error) {
+	// priority: env > gitconfig > default
+
+	// env
+	if r := os.Getenv("GHQ_ROOT"); r != "" {
+		return r, nil
+	}
+
+	// gitconfig
+	if r := gitcfg.Raw.Section("ghq").Option("root"); r != "" {
+		return r, nil
+	}
+
+	// default
 	h, err := os.UserHomeDir()
 	if err != nil {
 		return "", err
