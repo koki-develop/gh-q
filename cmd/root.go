@@ -8,6 +8,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:                   "q",
+	Long:                  "gh extension to manage GitHub repositories like `ghq`",
 	DisableFlagsInUseLine: true,
 	CompletionOptions: cobra.CompletionOptions{
 		DisableDefaultCmd: true,
