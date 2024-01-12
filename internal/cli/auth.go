@@ -12,7 +12,7 @@ func (c *Client) auth() (*git.Auth, error) {
 		return nil, nil
 	}
 
-	viewer, err := c.gitClient.Viewer()
+	viewer, err := c.gitClient.GetUsername()
 	if err != nil {
 		return nil, err
 	}
