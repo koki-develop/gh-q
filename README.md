@@ -14,7 +14,7 @@ gh extension to manage GitHub repositories like <a href="https://github.com/x-mo
 
 - [Installation](#installation)
 - [Usage](#usage)
-  - [`clone` - Clone repository](#clone---clone-repository)
+  - [`get` - Clone repository](#get---clone-repository)
   - [`list` - List managed repositories](#list---list-managed-repositories)
 - [LICENSE](#license)
 
@@ -34,7 +34,7 @@ Usage:
   gh q [command]
 
 Available Commands:
-  clone       Clone repository
+  get         Clone repository
   help        Help about any command
   list        List managed repositories
 
@@ -42,20 +42,20 @@ Flags:
   -h, --help   help for q
 ```
 
-### `clone` - Clone repository
+### `get` - Clone repository
 
 ```console
-$ gh q clone --help
+$ gh q get --help
 Clone repository.
 
 Usage:
-  gh q clone OWNER/REPO [flags]
+  gh q get OWNER/REPO [flags]
 
 Aliases:
-  clone, c
+  get, g
 
 Flags:
-  -h, --help   help for clone
+  -h, --help   help for get
 ```
 
 ### `list` - List managed repositories
