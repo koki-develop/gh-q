@@ -11,6 +11,7 @@ import (
 var (
 	flagListFullPath bool
 	flagListFilter   bool
+	flagListMultiple bool
 )
 
 var listCmd = &cobra.Command{
@@ -41,7 +42,12 @@ var listCmd = &cobra.Command{
 		}
 
 		if flagListFilter {
-			f, err := fzf.New()
+			opts := []fzf.Option{}
+			if flagListMultiple {
+				opts = append(opts, fzf.WithNoLimit(true))
+			}
+
+			f, err := fzf.New(opts...)
 			if err != nil {
 				return err
 			}
@@ -71,4 +77,5 @@ func init() {
 	rootCmd.AddCommand(listCmd)
 	listCmd.Flags().BoolVarP(&flagListFullPath, "full-path", "p", false, "print full path")
 	listCmd.Flags().BoolVarP(&flagListFilter, "filter", "f", false, "filter by fuzzy search")
+	listCmd.Flags().BoolVarP(&flagListMultiple, "multiple", "m", false, "allow multiple selection (only available with --filter)")
 }
