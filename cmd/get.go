@@ -8,9 +8,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var cloneCmd = &cobra.Command{
-	Use:     "clone OWNER/REPO",
-	Aliases: []string{"c"},
+var getCmd = &cobra.Command{
+	Use:     "get OWNER/REPO",
+	Aliases: []string{"g"},
 	Short:   "Clone repository",
 	Long:    "Clone repository.",
 	Args:    cobra.ExactArgs(1),
@@ -26,7 +26,7 @@ var cloneCmd = &cobra.Command{
 			return err
 		}
 
-		if err := c.Clone(owner, repo); err != nil {
+		if err := c.Get(owner, repo); err != nil {
 			return err
 		}
 		return nil
@@ -34,5 +34,5 @@ var cloneCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(cloneCmd)
+	rootCmd.AddCommand(getCmd)
 }

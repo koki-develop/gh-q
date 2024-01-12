@@ -4,7 +4,7 @@ import (
 	"github.com/koki-develop/gh-q/internal/git"
 )
 
-func (c *Client) Clone(owner, repo string) error {
+func (c *Client) Get(owner, repo string) error {
 	dest := c.path(owner, repo)
 
 	opts := []git.CloneOption{}
