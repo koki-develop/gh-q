@@ -30,17 +30,6 @@ var listCmd = &cobra.Command{
 			return err
 		}
 
-		items := make([]string, len(dirs))
-		if flagListFullPath {
-			for i, d := range dirs {
-				items[i] = d.FullPath
-			}
-		} else {
-			for i, d := range dirs {
-				items[i] = fmt.Sprintf("%s/%s", d.Owner, d.Repo)
-			}
-		}
-
 		if flagListFilter {
 			opts := []fzf.Option{}
 			if flagListMultiple {
@@ -52,21 +41,21 @@ var listCmd = &cobra.Command{
 				return err
 			}
 
-			idxs, err := f.Find(items, func(i int) string {
-				return items[i]
+			idxs, err := f.Find(dirs, func(i int) string {
+				return dirs[i].Path(flagListFullPath)
 			})
 			if err != nil {
 				return err
 			}
 			for _, idx := range idxs {
-				fmt.Println(items[idx])
+				fmt.Println(dirs[idx].Path(flagListFullPath))
 			}
 
 			return nil
 		}
 
-		for _, item := range items {
-			fmt.Println(item)
+		for _, dir := range dirs {
+			fmt.Println(dir.Path(flagListFullPath))
 		}
 
 		return nil

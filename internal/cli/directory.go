@@ -1,6 +1,7 @@
 package cli
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -11,6 +12,14 @@ type Directory struct {
 	Owner    string
 	Repo     string
 	FullPath string
+}
+
+func (d *Directory) Path(full bool) string {
+	if full {
+		return d.FullPath
+	} else {
+		return fmt.Sprintf("%s/%s", d.Owner, d.Repo)
+	}
 }
 
 func (c *Client) ListDirectories() ([]*Directory, error) {
