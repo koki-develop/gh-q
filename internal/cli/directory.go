@@ -18,7 +18,7 @@ func (d *Directory) Path(full bool) string {
 	if full {
 		return d.FullPath
 	} else {
-		return fmt.Sprintf("%s/%s", d.Owner, d.Repo)
+		return fmt.Sprintf("github.com/%s/%s", d.Owner, d.Repo)
 	}
 }
 
