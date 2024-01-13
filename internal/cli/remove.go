@@ -37,7 +37,7 @@ func (c *Client) Remove(owner, repo string, opts ...RemoveOption) error {
 	if err := os.RemoveAll(p); err != nil {
 		return err
 	}
-	fmt.Println("Removed.")
+	fmt.Printf("Removed `%s`.\n", p)
 
 	return nil
 }
