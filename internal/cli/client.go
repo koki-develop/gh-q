@@ -96,6 +96,8 @@ func GetUsername() (string, error) {
 }
 
 func ParseOwnerRepo(s string) (string, string, error) {
+	s = strings.TrimPrefix(s, "github.com/")
+
 	segs := strings.Split(s, "/")
 	if len(segs) == 1 {
 		repo := segs[0]
