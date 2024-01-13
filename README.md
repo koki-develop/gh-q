@@ -104,7 +104,7 @@ $ gh q remove --help
 Remove repository from local.
 
 Usage:
-  gh q remove OWNER/REPO|REPO [flags]
+  gh q remove OWNER/REPO|REPO... [flags]
 
 Aliases:
   remove, rm

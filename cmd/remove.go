@@ -13,7 +13,7 @@ var (
 )
 
 var removeCmd = &cobra.Command{
-	Use: fmt.Sprintf("remove %s/%s|%s",
+	Use: fmt.Sprintf("remove %s/%s|%s...",
 		color.New(color.Italic).Sprint("OWNER"), color.New(color.Italic).Sprint("REPO"),
 		color.New(color.Italic).Sprint("REPO"),
 	),
