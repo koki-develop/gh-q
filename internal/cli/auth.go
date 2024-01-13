@@ -1,10 +1,7 @@
 package cli
 
 import (
-	"os"
-
 	"github.com/cli/go-gh/v2/pkg/auth"
-	"github.com/cli/go-gh/v2/pkg/config"
 	"github.com/koki-develop/gh-q/internal/git"
 )
 
@@ -15,7 +12,7 @@ func (c *Client) auth() (*git.Auth, error) {
 		return nil, nil
 	}
 
-	username, err := c.GetUsername()
+	username, err := GetUsername()
 	if err != nil {
 		return nil, err
 	}
@@ -24,29 +21,4 @@ func (c *Client) auth() (*git.Auth, error) {
 		Username: username,
 		Token:    tkn,
 	}, nil
-}
-
-func (c *Client) GetUsername() (string, error) {
-	// priority: env > gitconfig > gh config
-
-	// env
-	if u := os.Getenv("GHQ_USER"); u != "" {
-		return u, nil
-	}
-
-	// gitconfig
-	if u := c.gitConfig.Raw.Section("ghq").Option("user"); u != "" {
-		return u, nil
-	}
-
-	// gh config
-	ghcfg, err := config.Read()
-	if err != nil {
-		return "", err
-	}
-	u, err := ghcfg.Get([]string{"hosts", "github.com", "user"})
-	if err != nil {
-		return "", err
-	}
-	return u, nil
 }

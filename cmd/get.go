@@ -1,9 +1,7 @@
 package cmd
 
 import (
-	"errors"
 	"fmt"
-	"strings"
 
 	"github.com/fatih/color"
 	"github.com/koki-develop/gh-q/internal/cli"
@@ -20,29 +18,15 @@ var getCmd = &cobra.Command{
 	Long:    "Clone repository.",
 	Args:    cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		c, err := cli.NewClient()
+		owner, repo, err := cli.ParseOwnerRepo(args[0])
 		if err != nil {
 			return err
 		}
 
-		var owner string
-		var repo string
-
-		segs := strings.Split(args[0], "/")
-		if len(segs) > 2 {
-			return errors.New("invalid repository name")
+		c, err := cli.NewClient()
+		if err != nil {
+			return err
 		}
-		if len(segs) == 1 {
-			repo = segs[0]
-			owner, err = c.GetUsername()
-			if err != nil {
-				return err
-			}
-		}
-		if len(segs) == 2 {
-			owner, repo = segs[0], segs[1]
-		}
-
 		if err := c.Get(owner, repo); err != nil {
 			return err
 		}
