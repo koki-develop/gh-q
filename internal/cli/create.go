@@ -1,6 +1,9 @@
 package cli
 
-import "os"
+import (
+	"errors"
+	"os"
+)
 
 func (c *Client) Create(owner, repo string) error {
 	p := c.path(owner, repo)
@@ -11,6 +14,14 @@ func (c *Client) Create(owner, repo string) error {
 		if err := os.MkdirAll(p, 0755); err != nil {
 			return err
 		}
+	}
+
+	ok, err := c.gitClient.IsExists(p)
+	if err != nil {
+		return err
+	}
+	if ok {
+		return errors.New("already exists")
 	}
 
 	if err := c.gitClient.Init(p); err != nil {

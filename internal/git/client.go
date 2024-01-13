@@ -17,7 +17,19 @@ func (c *Client) Init(p string) error {
 	if _, err := git.PlainInit(p, false); err != nil {
 		return err
 	}
+	fmt.Printf("Initialized empty Git repository in %s\n", p)
 	return nil
+}
+
+func (c *Client) IsExists(p string) (bool, error) {
+	_, err := git.PlainOpen(p)
+	if err == nil {
+		return true, nil
+	}
+	if err == git.ErrRepositoryNotExists {
+		return false, nil
+	}
+	return false, err
 }
 
 type cloneOptions struct {
