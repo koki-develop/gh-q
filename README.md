@@ -13,6 +13,8 @@ gh extension to manage GitHub repositories like <a href="https://github.com/x-mo
 ## Contents
 
 - [Installation](#installation)
+- [Configuration](#configuration)
+  - [`ghq.root`](#ghqroot)
 - [Usage](#usage)
   - [`create` - Create a new repository on local](#create---create-a-new-repository-on-local)
   - [`get` - Clone repository](#get---clone-repository)
@@ -24,6 +26,23 @@ gh extension to manage GitHub repositories like <a href="https://github.com/x-mo
 
 ```console
 $ gh extension install koki-develop/gh-q
+```
+
+## Configuration
+
+### `ghq.root`
+
+`ghq.root` is the root directory of the repository managed by.  
+If not set, it will be `~/ghq` by default.
+
+```console
+$ git config --global ghq.root ~/your/ghq
+```
+
+`GHQ_ROOT` environment variable can also be used to set it.
+
+```console
+$ export GHQ_ROOT=~/your/ghq
 ```
 
 ## Usage
