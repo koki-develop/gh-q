@@ -2,7 +2,6 @@ package git
 
 import (
 	"fmt"
-	"os"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
@@ -30,8 +29,7 @@ func (c *Client) Clone(owner, repo, dest string, opts ...CloneOption) error {
 	}
 
 	copts := &git.CloneOptions{
-		URL:      fmt.Sprintf("https://github.com/%s/%s", owner, repo),
-		Progress: os.Stdout,
+		URL: fmt.Sprintf("https://github.com/%s/%s", owner, repo),
 	}
 	if o.Auth != nil {
 		copts.Auth = &http.BasicAuth{
@@ -40,9 +38,11 @@ func (c *Client) Clone(owner, repo, dest string, opts ...CloneOption) error {
 		}
 	}
 
+	fmt.Printf("Cloning into %s\n", dest)
 	if _, err := git.PlainClone(dest, false, copts); err != nil {
 		return err
 	}
+	fmt.Println("Done.")
 
 	return nil
 }
