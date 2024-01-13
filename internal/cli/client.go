@@ -10,6 +10,7 @@ import (
 
 type Client struct {
 	root      string
+	gitConfig *config.Config
 	gitClient *git.Client
 }
 
@@ -28,6 +29,7 @@ func NewClient() (*Client, error) {
 
 	return &Client{
 		root:      root,
+		gitConfig: gitcfg,
 		gitClient: git.NewClient(),
 	}, nil
 }
