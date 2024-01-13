@@ -26,6 +26,13 @@ func (c *Client) Remove(owner, repo string, opts ...RemoveOption) error {
 	}
 
 	p := c.path(owner, repo)
+	ok, err := c.gitClient.IsExists(p)
+	if err != nil {
+		return err
+	}
+	if !ok {
+		return fmt.Errorf("repository `%s/%s` not found", owner, repo)
+	}
 
 	if !o.Force {
 		if ok := util.Confirm(fmt.Sprintf("Remove `%s`?", p)); !ok {
