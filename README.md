@@ -14,8 +14,10 @@ gh extension to manage GitHub repositories like <a href="https://github.com/x-mo
 
 - [Installation](#installation)
 - [Usage](#usage)
+  - [`create` - Create a new repository on local](#create---create-a-new-repository-on-local)
   - [`get` - Clone repository](#get---clone-repository)
   - [`list` - List managed repositories](#list---list-managed-repositories)
+  - [`remove` - Remove repository from local](#remove---remove-repository-from-local)
 - [LICENSE](#license)
 
 ## Installation
@@ -34,12 +36,30 @@ Usage:
   gh q [command]
 
 Available Commands:
+  create      Create a new repository on local
   get         Clone repository
   help        Help about any command
   list        List managed repositories
+  remove      Remove repository from local
 
 Flags:
   -h, --help   help for q
+```
+
+### `create` - Create a new repository on local
+
+```console
+$ gh q create --help
+Create a new repository on local.
+
+Usage:
+  gh q create OWNER/REPO|REPO [flags]
+
+Aliases:
+  create, c
+
+Flags:
+  -h, --help   help for create
 ```
 
 ### `get` - Clone repository
@@ -49,7 +69,7 @@ $ gh q get --help
 Clone repository.
 
 Usage:
-  gh q get OWNER/REPO [flags]
+  gh q get OWNER/REPO|REPO [flags]
 
 Aliases:
   get, g
@@ -75,6 +95,23 @@ Flags:
   -p, --full-path   print full path
   -h, --help        help for list
   -m, --multiple    allow multiple selection (only available with --filter)
+```
+
+### `remove` - Remove repository from local
+
+```console
+$ gh q remove --help
+Remove repository from local.
+
+Usage:
+  gh q remove OWNER/REPO|REPO [flags]
+
+Aliases:
+  remove, rm
+
+Flags:
+  -f, --force   Remove without confirmation
+  -h, --help    help for remove
 ```
 
 ## LICENSE
