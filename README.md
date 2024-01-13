@@ -72,7 +72,7 @@ $ gh q create --help
 Create a new repository on local.
 
 Usage:
-  gh q create OWNER/REPO|REPO [flags]
+  gh q create OWNER/REPO|REPO... [flags]
 
 Aliases:
   create, c
@@ -88,7 +88,7 @@ $ gh q get --help
 Clone repository.
 
 Usage:
-  gh q get OWNER/REPO|REPO [flags]
+  gh q get OWNER/REPO|REPO... [flags]
 
 Aliases:
   get, g
