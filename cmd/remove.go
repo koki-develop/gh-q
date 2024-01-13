@@ -20,20 +20,21 @@ var removeCmd = &cobra.Command{
 	Aliases: []string{"rm"},
 	Short:   "Remove repository from local",
 	Long:    "Remove repository from local.",
-	Args:    cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
-		owner, repo, err := cli.ParseOwnerRepo(args[0])
-		if err != nil {
-			return err
-		}
-
 		c, err := cli.NewClient()
 		if err != nil {
 			return err
 		}
 
-		if err := c.Remove(owner, repo, cli.WithRemoveForce(flagRemoveForce)); err != nil {
-			return err
+		for _, arg := range args {
+			owner, repo, err := cli.ParseOwnerRepo(arg)
+			if err != nil {
+				return err
+			}
+
+			if err := c.Remove(owner, repo, cli.WithRemoveForce(flagRemoveForce)); err != nil {
+				return err
+			}
 		}
 
 		return nil
