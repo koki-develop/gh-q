@@ -17,7 +17,7 @@ func (c *Client) Init(p string) error {
 	if _, err := git.PlainInit(p, false); err != nil {
 		return err
 	}
-	fmt.Printf("Initialized empty Git repository in %s\n", p)
+	fmt.Printf("Initialized empty Git repository in `%s`.\n", p)
 	return nil
 }
 
@@ -63,7 +63,7 @@ func (c *Client) Clone(owner, repo, dest string, opts ...CloneOption) error {
 		}
 	}
 
-	fmt.Printf("Cloning into %s\n", dest)
+	fmt.Printf("Cloning into `%s`...\n", dest)
 	if _, err := git.PlainClone(dest, false, copts); err != nil {
 		return err
 	}
