@@ -1,15 +1,13 @@
 package cli
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
-
-	"github.com/go-git/go-git/v5"
 )
 
 type Directory struct {
-	Name     string
+	Owner    string
+	Repo     string
 	FullPath string
 }
 
@@ -17,40 +15,39 @@ func (d *Directory) Path(full bool) string {
 	if full {
 		return d.FullPath
 	} else {
-		return fmt.Sprintf(d.Name)
+		return filepath.Join("github.com", d.Owner, d.Repo)
 	}
 }
 
 func (c *Client) ListDirectories() ([]*Directory, error) {
+	matches, err := filepath.Glob(filepath.Join(c.root, "github.com/*/*"))
+	if err != nil {
+		return nil, err
+	}
+
 	dirs := []*Directory{}
-	err := filepath.WalkDir(filepath.Join(c.root, "github.com"), func(p string, d os.DirEntry, err error) error {
+	for _, match := range matches {
+		info, err := os.Stat(match)
 		if err != nil {
-			return err
+			return nil, err
 		}
-		if !d.IsDir() {
-			return nil
+		if !info.IsDir() {
+			continue
 		}
 
-		if _, err := git.PlainOpen(p); err != nil {
-			if err == git.ErrRepositoryNotExists {
-				return nil
-			}
-			return err
-		}
-
-		name, err := filepath.Rel(c.root, p)
+		ok, err := c.gitClient.IsExists(match)
 		if err != nil {
-			return err
+			return nil, err
+		}
+		if !ok {
+			continue
 		}
 
 		dirs = append(dirs, &Directory{
-			Name:     name,
-			FullPath: p,
+			Owner:    filepath.Base(filepath.Dir(match)),
+			Repo:     filepath.Base(match),
+			FullPath: match,
 		})
-		return filepath.SkipDir
-	})
-	if err != nil {
-		return nil, err
 	}
 
 	return dirs, nil
