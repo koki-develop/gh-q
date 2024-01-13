@@ -22,14 +22,19 @@ func (c *Client) Init(p string) error {
 }
 
 func (c *Client) IsExists(p string) (bool, error) {
-	_, err := git.PlainOpen(p)
-	if err == nil {
-		return true, nil
+	repo, err := git.PlainOpen(p)
+	if err != nil {
+		if err == git.ErrRepositoryNotExists {
+			return false, nil
+		}
+		return false, err
 	}
-	if err == git.ErrRepositoryNotExists {
+
+	if _, err := repo.Worktree(); err != nil {
 		return false, nil
 	}
-	return false, err
+
+	return true, nil
 }
 
 type cloneOptions struct {
