@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
@@ -14,7 +15,7 @@ func NewClient() *Client {
 }
 
 func (c *Client) Init(p string) error {
-	if _, err := git.PlainInit(p, false); err != nil {
+	if _, err := git.PlainInitWithOptions(p, &git.PlainInitOptions{InitOptions: git.InitOptions{DefaultBranch: plumbing.Main}}); err != nil {
 		return err
 	}
 	fmt.Printf("Initialized empty Git repository in `%s`.\n", p)
