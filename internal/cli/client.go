@@ -95,6 +95,14 @@ func GetUsername() (string, error) {
 	return u, nil
 }
 
+func GetSSHKeyPath() (string, error) {
+	if p := os.Getenv("GHQ_SSH_KEY_PATH"); p != "" {
+		return p, nil
+	}
+
+	return "", nil
+}
+
 func ParseOwnerRepo(s string) (string, string, error) {
 	s = strings.TrimPrefix(s, "github.com/")
 

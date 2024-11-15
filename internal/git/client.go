@@ -6,6 +6,7 @@ import (
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
+	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
 )
 
 type Client struct{}
@@ -39,7 +40,8 @@ func (c *Client) IsExists(p string) (bool, error) {
 }
 
 type cloneOptions struct {
-	Auth *Auth
+	Auth       *Auth
+	SSHKeyPath *string
 }
 
 type CloneOption func(*cloneOptions)
@@ -53,19 +55,34 @@ func WithCloneAuth(username, token string) CloneOption {
 	}
 }
 
+func WithCloneSSHKey(path string) CloneOption {
+	return func(opts *cloneOptions) {
+		opts.SSHKeyPath = &path
+	}
+}
+
 func (c *Client) Clone(owner, repo, dest string, opts ...CloneOption) error {
 	o := &cloneOptions{}
 	for _, opt := range opts {
 		opt(o)
 	}
 
-	copts := &git.CloneOptions{
-		URL: fmt.Sprintf("https://github.com/%s/%s", owner, repo),
-	}
-	if o.Auth != nil {
-		copts.Auth = &http.BasicAuth{
-			Username: o.Auth.Username,
-			Password: o.Auth.Token,
+	copts := &git.CloneOptions{}
+
+	if o.SSHKeyPath != nil {
+		copts.URL = fmt.Sprintf("ssh://git@github.com/%s/%s", owner, repo)
+		pub, err := ssh.NewPublicKeysFromFile("git", *o.SSHKeyPath, "")
+		if err != nil {
+			return err
+		}
+		copts.Auth = pub
+	} else {
+		copts.URL = fmt.Sprintf("https://github.com/%s/%s", owner, repo)
+		if o.Auth != nil {
+			copts.Auth = &http.BasicAuth{
+				Username: o.Auth.Username,
+				Password: o.Auth.Token,
+			}
 		}
 	}
 
