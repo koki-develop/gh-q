@@ -6,7 +6,7 @@ toolchain go1.24.4
 
 require (
 	github.com/cli/go-gh/v2 v2.12.1
-	github.com/fatih/color v1.16.0
+	github.com/fatih/color v1.18.0
 	github.com/go-git/go-git/v5 v5.13.0
 	github.com/koki-develop/go-fzf v0.15.0
 	github.com/spf13/cobra v1.8.0
