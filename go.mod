@@ -1,6 +1,6 @@
 module github.com/koki-develop/gh-q
 
-go 1.21.6
+go 1.23
 
 require (
 	github.com/cli/go-gh/v2 v2.4.0
