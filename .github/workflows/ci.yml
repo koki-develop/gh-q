@@ -43,6 +43,6 @@ jobs:
 
       - uses: jdx/mise-action@5cb1df66ed5e1fb3c670ea0b62fd17a76979826a # v2.3.1
         with:
-          version: latest
+          experimental: true
 
       - run: golangci-lint run
