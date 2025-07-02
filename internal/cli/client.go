@@ -38,7 +38,7 @@ func LoadGitConfig() (*config.Config, error) {
 }
 
 func LoadGhConfig() (*ghconfig.Config, error) {
-	return ghconfig.Read()
+	return ghconfig.Read(ghconfig.ReadFromString(""))
 }
 
 func GetRoot() (string, error) {
