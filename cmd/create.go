@@ -13,7 +13,7 @@ var createCmd = &cobra.Command{
 		color.New(color.Italic).Sprint("OWNER"), color.New(color.Italic).Sprint("REPO"),
 		color.New(color.Italic).Sprint("REPO"),
 	),
-	Aliases: []string{"c"},
+	Aliases: []string{"c", "new", "n"},
 	Short:   "Create a new repository on local",
 	Long:    "Create a new repository on local.",
 	Args:    cobra.MinimumNArgs(1),
