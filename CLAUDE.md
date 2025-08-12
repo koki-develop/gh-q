@@ -46,6 +46,12 @@ make install
 gh q [command]
 ```
 
+### Linting
+```bash
+# Run Go linter (used in CI)
+golangci-lint run
+```
+
 ## Architecture Overview
 
 ### Command Structure
@@ -84,8 +90,10 @@ The tool respects the following configuration sources:
 1. Environment variables:
    - `GHQ_ROOT`: Repository root directory
    - `GHQ_SSH_KEY_PATH`: Path to SSH key for Git operations
+   - `GHQ_USER`: Default username for repository operations
 2. Git config:
    - `ghq.root`: Repository root directory
+   - `ghq.user`: Default username
 3. GitHub CLI authentication token
 
 ### Testing
@@ -97,9 +105,12 @@ Currently, the project does not have test files. When adding tests:
 
 ### Release Process
 
-Releases are automated via GitHub Actions:
-1. Push a tag starting with `v` (e.g., `v1.0.0`)
-2. GitHub Actions will build and create a release with precompiled binaries
+Releases are fully automated using Release Please:
+1. When changes are pushed to `main`, Release Please creates/updates a PR with version bumps and CHANGELOG updates
+2. Merging the Release Please PR triggers the actual release
+3. GitHub Actions automatically builds and publishes precompiled binaries via `gh-extension-precompile`
+
+The release workflow is defined in `.github/workflows/release-please.yml`
 
 ### Code Style Guidelines
 
