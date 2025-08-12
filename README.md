@@ -75,7 +75,7 @@ Usage:
   gh q create OWNER/REPO|REPO... [flags]
 
 Aliases:
-  create, c
+  create, c, new, n
 
 Flags:
   -h, --help   help for create
