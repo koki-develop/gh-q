@@ -2,7 +2,7 @@ module github.com/koki-develop/gh-q
 
 go 1.23.0
 
-toolchain go1.24.4
+toolchain go1.25.1
 
 require (
 	github.com/cli/go-gh/v2 v2.12.1
