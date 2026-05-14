@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.4](https://github.com/koki-develop/gh-q/compare/v0.4.3...v0.4.4) (2026-05-14)
+
+
+### Bug Fixes
+
+* **deps:** update module github.com/go-git/go-git/v5 to v5.19.0 [security] ([#19](https://github.com/koki-develop/gh-q/issues/19)) ([5114866](https://github.com/koki-develop/gh-q/commit/5114866fb453c852dbbcfede882244490dde7418))
+
 ## [0.4.3](https://github.com/koki-develop/gh-q/compare/v0.4.2...v0.4.3) (2025-08-12)
 
 
